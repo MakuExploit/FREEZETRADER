@@ -11,13 +11,9 @@ local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "TradeFreezeUniversal"
 screenGui.ResetOnSpawn = false
 screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-local parentSuccess = pcall(function()
-    screenGui.Parent = PlayerGui
-end)
-if not parentSuccess then
-    screenGui.Parent = game:GetService("CoreGui")
-end
+screenGui.DisplayOrder = 999999                -- High priority to appear on top
+screenGui.IgnoreGuiInset = true                -- Helps with full-screen overlay
+screenGui.Parent = game:GetService("CoreGui")  -- Force CoreGui to beat in-game trade UI
 
 local baseSize = isMobile and UDim2.new(0, 300, 0, 305) or UDim2.new(0, 340, 0, 335)
 local basePos = UDim2.new(0.5, isMobile and -150 or -170, 0.5, isMobile and -152 or -167)
@@ -346,7 +342,7 @@ end
 
 createToggleButton("Freeze Trade", "\u{2744}", 1)     -- ❄
 createToggleButton("Auto Accept",   "\u{2713}", 2)     -- ✓
-createToggleButton("Add Brainrot",  "\u{2715}", 3)     -- ✕   ← changed here
+createToggleButton("Add Brainrot",  "\u{2715}", 3)     -- ✕
 
 -- Version label - tight fit
 local versionLabel = Instance.new("TextLabel")
